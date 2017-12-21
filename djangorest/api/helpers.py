@@ -8,7 +8,7 @@ def create_folder(path):
     if e.errno != errno.EEXIST:
       raise
 
-def get_measure_types(type, section):
+def get_categories(type, section):
   if(section == 'General'):
     return [
       { 'key': 'traditional', 'name': 'Base' },
@@ -65,6 +65,23 @@ def get_measure_types(type, section):
       { 'key': 'lt6ft', 'name': 'Less Than 6Ft' },
       { 'key': 'lt10ft', 'name': 'Less Than 10Ft' },
       { 'key': 'gt15ft', 'name': 'Greater Than 15Ft' }
+    ]
+  elif(section == 'ShotDashboard'):
+    return [
+      { 'key': 'general', 'name': 'Overall' },
+      { 'key': 'shotclock', 'name': '24-22' },
+      { 'key': 'dribbles', 'name': '0 Dribbles' },
+      { 'key': 'touchtime', 'name': 'Touch < 2 Seconds' },
+      { 'key': 'closestdefender', 'name': '0-2 Feet - Very Tight' },
+      { 'key': 'closestdefender10p', 'name': '0-2 Feet - Very Tight' }
+    ]
+  elif(section == 'AdvancedBoxScores'):
+    return [
+      { 'key': 'traditional', 'name': 'Base' },
+      { 'key': 'advanced', 'name': 'Advanced' },
+      { 'key': 'fourfactors', 'name': 'Four Factors' },
+      { 'key': 'misc', 'name': 'Misc' },
+      { 'key': 'scoring', 'name': 'Scoring' }
     ]
   
   return []

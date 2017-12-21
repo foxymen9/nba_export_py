@@ -84,10 +84,10 @@ def _get_json(endpoint, params, referer='scores'):
     h = dict(HEADERS)
     h['referer'] = 'http://stats.nba.com/{ref}/'.format(ref=referer)
     _get = get(BASE_URL.format(endpoint=endpoint), params=params, headers=h)
-    # print _get.url
+    # print(_get.url)
     _get.raise_for_status()
-    return _get.json()
 
+    return _get.json()
 
 def _api_scrape_playtype(json_inp):
     values = json_inp['results']

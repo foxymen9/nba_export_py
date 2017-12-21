@@ -374,33 +374,6 @@ class PlayerSpeedDistanceTracking(_PlayerTrackingStats):
     """
     _pt_measure_type = constants.PtMeasureType.SpeedDistance
 
-
-class GameLog:
-    _endpoint = 'leaguegamelog'
-
-    def __init__(self,
-                 league_id=constants.League.Default,
-                 season=constants.CURRENT_SEASON,
-                 season_type=constants.SeasonType.Default,
-                 player_or_team=constants.Player_or_Team.Default,
-                 counter=constants.Counter.Default,
-                 sorter=constants.Sorter.Default,
-                 direction=constants.Direction.Default,
-                 ):
-
-        self.json = _get_json(endpoint=self._endpoint,
-                              params={'LeagueID': league_id,
-                                      'Season': season,
-                                      'SeasonType': season_type,
-                                      'PlayerOrTeam': player_or_team,
-                                      'Counter': counter,
-                                      'Sorter': sorter,
-                                      'Direction': direction
-                                      })
-
-    def overall(self):
-        return _api_scrape(self.json, 0)
-
 class TeamClutch:
     _endpoint = 'leaguedashteamclutch'
 
@@ -479,7 +452,7 @@ class TeamClutch:
 
 class TeamPlaytype:
     def __init__(self,
-                 category=constants._DefaultBlank,
+                 category=constants._DefaultBlank.Default,
                  season=constants.CURRENT_SEASON,
                  season_type=constants.PlaytypeSeasonType.Default,
                  time=constants.CURRENT_TIME,
@@ -504,7 +477,7 @@ class TeamDefenseDashboard:
     def __init__(self,
                  league_id=constants.League.Default,
                  season_type=constants.SeasonType.Default,
-                 defense_category=constants._DefaultBlank,
+                 defense_category=constants._DefaultBlank.Default,
                  per_mode=constants.PerMode.Default,
                  season=constants.CURRENT_SEASON,
                  playoff_round=constants.PlayoffRound.Default,
@@ -550,3 +523,94 @@ class TeamDefenseDashboard:
 
     def overall(self):
         return _api_scrape(self.json, 0)
+
+
+class TeamShotDashboard:
+    _endpoint = 'leaguedashteamptshot'
+
+    def __init__(self,
+                 league_id=constants.League.Default,
+                 season_type=constants.SeasonType.Default,
+                 per_mode=constants.PerMode.Default,
+                 season=constants.CURRENT_SEASON,
+                 playoff_round=constants.PlayoffRound.Default,
+                 outcome=constants.Outcome.Default,
+                 location=constants.Location.Default,
+                 month=constants.Month.Default,
+                 season_segment=constants.SeasonSegment.Default,
+                 date_from=constants.DateFrom.Default,
+                 date_to=constants.DateTo.Default,
+                 opponent_team_id=constants.OpponentTeamID.Default,
+                 vs_conference=constants.VsConference.Default,
+                 vs_division=constants.VsDivision.Default,
+                 team_id=constants.TeamID.Default,
+                 conference=constants.Conference.Default,
+                 division=constants.Division.Default,
+                 game_segment=constants.GameSegment.Default,
+                 period=constants.Period.Default,
+                 last_n_games=constants.LastNGames.Default,
+                 general_range=constants._DefaultBlank.Default,
+                 shotclock_range=constants._DefaultBlank.Default,
+                 dribbles_range=constants._DefaultBlank.Default,
+                 touchtime_range=constants._DefaultBlank.Default,
+                 closedefdist_range=constants._DefaultBlank.Default,
+                 shotdist_range=constants._DefaultBlank.Default,
+                 ):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'LeagueID': league_id,
+                                      'SeasonType': season_type,
+                                      'PerMode': per_mode,
+                                      'Season': season,
+                                      'PORound': playoff_round,
+                                      'Outcome': outcome,
+                                      'Location': location,
+                                      'Month': month,
+                                      'SeasonSegment': season_segment,
+                                      'DateFrom': date_from,
+                                      'DateTo': date_to,
+                                      'OpponentTeamID': opponent_team_id,
+                                      'VsConference': vs_conference,
+                                      'VsDivision': vs_division,
+                                      'TeamID': team_id,
+                                      'Conference': conference,
+                                      'Division': division,
+                                      'GameSegment': game_segment,
+                                      'Period': period,
+                                      'LastNGames': last_n_games,
+                                      'GeneralRange': general_range,
+                                      'ShotClockRange': shotclock_range,
+                                      'DribbleRange': dribbles_range,
+                                      'TouchTimeRange': touchtime_range,
+                                      'CloseDefDistRange': closedefdist_range,
+                                      'ShotDistRange': shotdist_range,
+                                      })
+
+    def overall(self):
+        return _api_scrape(self.json, 0)
+
+class GameLog:
+    _endpoint = 'leaguegamelog'
+
+    def __init__(self,
+                 league_id=constants.League.Default,
+                 season=constants.CURRENT_SEASON,
+                 season_type=constants.SeasonType.Default,
+                 player_or_team=constants.Player_or_Team.Default,
+                 counter=constants.Counter.Default,
+                 sorter=constants.Sorter.Default,
+                 direction=constants.Direction.Default,
+                 ):
+
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'LeagueID': league_id,
+                                      'Season': season,
+                                      'SeasonType': season_type,
+                                      'PlayerOrTeam': player_or_team,
+                                      'Counter': counter,
+                                      'Sorter': sorter,
+                                      'Direction': direction
+                                      })
+
+    def overall(self):
+        return _api_scrape(self.json, 0)
+
