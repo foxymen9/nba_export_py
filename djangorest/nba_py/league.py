@@ -750,3 +750,67 @@ class TeamOpponentShooting:
 
     def overall(self):
         return _api_scrape(self.json, 0)
+
+
+class TeamHustle:
+    _endpoint = 'leaguehustlestatsteam'
+
+    def __init__(self,
+                 league_id=constants.League.Default,
+                 season_type=constants.SeasonType.Default,
+                 per_mode=constants.PerMode.Default,
+                 season=constants.CURRENT_SEASON,
+                 playoff_round=constants.PlayoffRound.Default,
+                 outcome=constants.Outcome.Default,
+                 location=constants.Location.Default,
+                 month=constants.Month.Default,
+                 season_segment=constants.SeasonSegment.Default,
+                 date_from=constants.DateFrom.Default,
+                 date_to=constants.DateTo.Default,
+                 opponent_team_id=constants.OpponentTeamID.Default,
+                 vs_conference=constants.VsConference.Default,
+                 vs_division=constants.VsDivision.Default,
+                 team_id=constants.TeamID.Default,
+                 conference=constants.Conference.Default,
+                 division=constants.Division.Default,
+                 last_n_games=constants.LastNGames.Default,
+                 player_experience=constants.PlayerExperience.Default,
+                 player_position=constants.PlayerPosition.Default,
+                 draft_year=constants.DraftYear.Default,
+                 draft_pick=constants.DraftPick.Default,
+                 college=constants.College.Default,
+                 country=constants.Country.Default,
+                 height=constants.Height.Default,
+                 weight=constants.Weight.Default
+                 ):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'LeagueID': league_id,
+                                      'SeasonType': season_type,
+                                      'PerMode': per_mode,
+                                      'Season': season,
+                                      'PORound': playoff_round,
+                                      'Outcome': outcome,
+                                      'Location': location,
+                                      'Month': month,
+                                      'SeasonSegment': season_segment,
+                                      'DateFrom': date_from,
+                                      'DateTo': date_to,
+                                      'OpponentTeamID': opponent_team_id,
+                                      'VsConference': vs_conference,
+                                      'VsDivision': vs_division,
+                                      'TeamID': team_id,
+                                      'Conference': conference,
+                                      'Division': division,
+                                      'LastNGames': last_n_games,
+                                      'PlayerExperience': player_experience,
+                                      'PlayerPosition': player_position,
+                                      'DraftYear': draft_year,
+                                      'DraftPick': draft_pick,
+                                      'College': college,
+                                      'Country': country,
+                                      'Height': height,
+                                      'Weight': weight
+                                      })
+
+    def overall(self):
+        return _api_scrape(self.json, 0)

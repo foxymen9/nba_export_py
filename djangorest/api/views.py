@@ -20,17 +20,19 @@ class NBAStatsView(generics.ListAPIView):
     teamAdvancedBoxScores = TeamAdvancedBoxScores()
     teamShooting = TeamShooting()
     teamOpponentShooting = TeamOpponentShooting()
+    teamHustle = TeamHustle()
 
-    # teamGeneral.create_files()
-    # teamClutch.create_files()
-    # teamPlaytype.create_files()
-    # teamTracking.create_files()
-    # teamDefenseDashboard.create_files()
-    # teamShotDashboard.create_files()
-    # boxScores.create_files()
-    # teamAdvancedBoxScores.create_files()
+    teamGeneral.create_files()
+    teamClutch.create_files()
+    teamPlaytype.create_files()
+    teamTracking.create_files()
+    teamDefenseDashboard.create_files()
+    teamShotDashboard.create_files()
+    boxScores.create_files()
+    teamAdvancedBoxScores.create_files()
     teamShooting.create_files()
     teamOpponentShooting.create_files()
+    teamHustle.create_files()
 
     return Response("OK", 200)
 
@@ -337,3 +339,30 @@ class TeamOpponentShooting():
 
     for category in categories:
       self.create_file(category)
+
+class TeamHustle():
+
+  def create_file(self, last_game):
+    now = datetime.now()
+    date = now.strftime("%m-%d-%Y")
+    time = now.strftime("%m-%d-%Y-%H-%M-%S")
+    
+    file_name = 'team_hustle_' + last_game['name']
+    path_latest = OUT_DIR + '/stats/nba/' + date + '/latest/'
+    path_archived = OUT_DIR + '/stats/nba/' + date + '/archived/' + time + '/'
+
+    helpers.create_folder(path_latest)
+    helpers.create_folder(path_archived)
+
+    stats = league.TeamHustle(last_n_games=last_game['value'])
+    df = stats.overall()
+    df.to_csv(path_latest + file_name + '.csv', encoding='utf-8')
+    df.to_json(path_latest + file_name + '.json', orient='records')
+    df.to_csv(path_archived + file_name + '.csv', encoding='utf-8')
+    df.to_json(path_archived + file_name + '.json', orient='records')
+
+  def create_files(self):
+    last_games = helpers.get_last_games('Team', 'Hustle')
+
+    for last_game in last_games:
+      self.create_file(last_game)
