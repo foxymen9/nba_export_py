@@ -1,4 +1,4 @@
-from nba_py import _api_scrape, _get_json
+from nba_py import _api_scrape, _get_json, _api_scrape_playtype, _get_json_playtype
 from nba_py import constants
 
 
@@ -471,6 +471,81 @@ class TeamClutch:
                                       'AheadBehind': ahead_behind,
                                       'ClutchTime': clutch_time,
                                       'PointDiff': point_diff
+                                      })
+
+    def overall(self):
+        return _api_scrape(self.json, 0)
+
+
+class TeamPlaytype:
+    def __init__(self,
+                 category=constants._DefaultBlank,
+                 season=constants.CURRENT_SEASON,
+                 season_type=constants.PlaytypeSeasonType.Default,
+                 time=constants.CURRENT_TIME,
+                 names=constants.PlaytypeNames.Default,
+                 limit=constants.PlaytypeLimit.All,
+                 ):
+        self.json = _get_json_playtype(params={'category': category,
+                                               'season': season,
+                                               'seasonType': season_type,
+                                               'names': names,
+                                               'q': time,
+                                               'limit': limit
+                                               })
+
+    def overall(self):
+        return _api_scrape_playtype(self.json)
+
+
+class TeamDefenseDashboard:
+    _endpoint = 'leaguedashptteamdefend'
+
+    def __init__(self,
+                 league_id=constants.League.Default,
+                 season_type=constants.SeasonType.Default,
+                 defense_category=constants._DefaultBlank,
+                 per_mode=constants.PerMode.Default,
+                 season=constants.CURRENT_SEASON,
+                 playoff_round=constants.PlayoffRound.Default,
+                 outcome=constants.Outcome.Default,
+                 location=constants.Location.Default,
+                 month=constants.Month.Default,
+                 season_segment=constants.SeasonSegment.Default,
+                 date_from=constants.DateFrom.Default,
+                 date_to=constants.DateTo.Default,
+                 opponent_team_id=constants.OpponentTeamID.Default,
+                 vs_conference=constants.VsConference.Default,
+                 vs_division=constants.VsDivision.Default,
+                 team_id=constants.TeamID.Default,
+                 conference=constants.Conference.Default,
+                 division=constants.Division.Default,
+                 game_segment=constants.GameSegment.Default,
+                 period=constants.Period.Default,
+                 last_n_games=constants.LastNGames.Default,
+                 ):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'LeagueID': league_id,
+                                      'SeasonType': season_type,
+                                      'DefenseCategory': defense_category,
+                                      'PerMode': per_mode,
+                                      'Season': season,
+                                      'PORound': playoff_round,
+                                      'Outcome': outcome,
+                                      'Location': location,
+                                      'Month': month,
+                                      'SeasonSegment': season_segment,
+                                      'DateFrom': date_from,
+                                      'DateTo': date_to,
+                                      'OpponentTeamID': opponent_team_id,
+                                      'VsConference': vs_conference,
+                                      'VsDivision': vs_division,
+                                      'TeamID': team_id,
+                                      'Conference': conference,
+                                      'Division': division,
+                                      'GameSegment': game_segment,
+                                      'Period': period,
+                                      'LastNGames': last_n_games,
                                       })
 
     def overall(self):

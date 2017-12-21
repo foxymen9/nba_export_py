@@ -6,6 +6,8 @@ if datetime.now().month > 6:
 else:
     CURRENT_SEASON = str(_curr_year - 1) + "-" + str(_curr_year)[2:]
 
+CURRENT_TIME = datetime.now().timestamp()
+
 TEAMS = {
     'ATL': {
         'abbr': 'ATL',
@@ -783,3 +785,18 @@ class Direction:
 
 class PointDiff:
     Default = 5
+
+
+class PlaytypeNames:
+    Offensive = 'Offensive'
+    Deffensive = 'Deffensive'
+    Default = Offensive
+
+
+class PlaytypeLimit:
+    All = 500
+
+
+class PlaytypeSeasonType:
+    Reg = 'Reg'
+    Default = Reg

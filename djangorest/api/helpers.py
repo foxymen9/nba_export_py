@@ -28,6 +28,20 @@ def get_measure_types(type, section):
       { 'key': 'scoring', 'name': 'Scoring' },
       { 'key': 'opponent', 'name': 'Opponent' }
     ]
+  elif(section == 'Playtype'):
+    return [
+      { 'key': 'transition', 'name': 'Transition' },
+      { 'key': 'isolation', 'name': 'Isolation' },
+      { 'key': 'prballhandler', 'name': 'PRBallHandler' },
+      { 'key': 'prrollman', 'name': 'PRRollman' },
+      { 'key': 'postup', 'name': 'Postup' },
+      { 'key': 'spotup', 'name': 'Spotup' },
+      { 'key': 'handoff', 'name': 'Handoff' },
+      { 'key': 'cut', 'name': 'Cut' },
+      { 'key': 'offscreen', 'name': 'OffScreen' },
+      { 'key': 'putbacks', 'name': 'OffRebound' },
+      { 'key': 'misc', 'name': 'Misc' }
+    ]
   elif(section == 'Tracking'):
     return [
       { 'key': 'drives', 'name': 'Drives' },
@@ -42,6 +56,15 @@ def get_measure_types(type, section):
       { 'key': 'posttouches', 'name': 'PostTouch' },
       { 'key': 'painttouches', 'name': 'PaintTouch' },
       { 'key': 'pullupshot', 'name': 'PullUpShot' }
+    ]
+  elif(section == 'DefenseDashboard'):
+    return [
+      { 'key': 'overall', 'name': 'Overall' },
+      { 'key': '3pointers', 'name': '3 Pointers' },
+      { 'key': '2pointers', 'name': '2 Pointers' },
+      { 'key': 'lt6ft', 'name': 'Less Than 6Ft' },
+      { 'key': 'lt10ft', 'name': 'Less Than 10Ft' },
+      { 'key': 'gt15ft', 'name': 'Greater Than 15Ft' }
     ]
   
   return []

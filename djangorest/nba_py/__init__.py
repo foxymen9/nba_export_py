@@ -29,6 +29,7 @@ HEADERS = {
     'Accept-Language': ('en'),
     'origin': ('http://stats.nba.com')
     }
+BASE_URL_PLAYTYPE = 'https://stats-prod.nba.com/wp-json/statscms/v1/synergy/team/'
 
 
 def _api_scrape(json_inp, ndx):
@@ -66,7 +67,6 @@ def _api_scrape(json_inp, ndx):
         # Taken from www.github.com/bradleyfay/py-goldsberry
         return [dict(zip(headers, value)) for value in values]
 
-
 def _get_json(endpoint, params, referer='scores'):
     """
     Internal method to streamline our requests / json getting
@@ -83,9 +83,23 @@ def _get_json(endpoint, params, referer='scores'):
     """
     h = dict(HEADERS)
     h['referer'] = 'http://stats.nba.com/{ref}/'.format(ref=referer)
-    _get = get(BASE_URL.format(endpoint=endpoint), params=params,
-               headers=h)
+    _get = get(BASE_URL.format(endpoint=endpoint), params=params, headers=h)
     # print _get.url
+    _get.raise_for_status()
+    return _get.json()
+
+
+def _api_scrape_playtype(json_inp):
+    values = json_inp['results']
+    if HAS_PANDAS:
+        return DataFrame(values)
+    else:
+        return [dict(zip(value)) for value in values]
+
+def _get_json_playtype(params):
+    h = dict(HEADERS)
+    h['referer'] = 'http://stats.nba.com/teams/{ref}/'.format(ref=params['category'])
+    _get = get(BASE_URL_PLAYTYPE, params=params, headers=h)
     _get.raise_for_status()
     return _get.json()
 
