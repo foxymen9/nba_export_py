@@ -61,11 +61,34 @@ def _api_scrape(json_inp, ndx):
             # Added for results that only include one set (ex. LeagueLeaders)
             headers = json_inp['resultSet']['headers']
             values = json_inp['resultSet']['rowSet']
+
     if HAS_PANDAS:
         return DataFrame(values, columns=headers)
     else:
         # Taken from www.github.com/bradleyfay/py-goldsberry
         return [dict(zip(headers, value)) for value in values]
+
+
+def _api_scrape_with_headers(json_inp):
+    headers = json_inp['resultSets']['headers']
+    values = json_inp['resultSets']['rowSet']
+    newHeaders = []
+    
+    i = 0
+    for header1 in headers[1]['columnNames']:
+        j = (i - 2) // 3
+        if i > 1:
+            newHeaders.append(headers[0]['columnNames'][j] + ' ' + header1)
+        else:
+            newHeaders.append(header1)
+        i = i + 1
+
+    if HAS_PANDAS:
+        return DataFrame(values, columns=newHeaders)
+    else:
+        # Taken from www.github.com/bradleyfay/py-goldsberry
+        return [dict(zip(headers, value)) for value in values]
+
 
 def _get_json(endpoint, params, referer='scores'):
     """
@@ -89,12 +112,14 @@ def _get_json(endpoint, params, referer='scores'):
 
     return _get.json()
 
+
 def _api_scrape_playtype(json_inp):
     values = json_inp['results']
     if HAS_PANDAS:
         return DataFrame(values)
     else:
         return [dict(zip(value)) for value in values]
+
 
 def _get_json_playtype(params):
     h = dict(HEADERS)

@@ -83,6 +83,16 @@ def get_categories(type, section):
       { 'key': 'misc', 'name': 'Misc' },
       { 'key': 'scoring', 'name': 'Scoring' }
     ]
+  elif(section == 'OpponentShooting'):
+    return [
+      { 'key': 'opponent', 'name': 'Opponent' },
+      { 'key': 'general', 'name': 'Overall' },
+      { 'key': 'shotclock', 'name': '24-22' },
+      { 'key': 'dribbles', 'name': '0 Dribbles' },
+      { 'key': 'touchtime', 'name': 'Touch < 2 Seconds' },
+      { 'key': 'closestdefender', 'name': '0-2 Feet - Very Tight' },
+      { 'key': 'closestdefender10p', 'name': '0-2 Feet - Very Tight' }
+    ]
   
   return []
 

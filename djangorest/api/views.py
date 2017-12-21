@@ -10,23 +10,27 @@ OUT_DIR = settings.BASE_DIR + '/../files'
 class NBAStatsView(generics.ListAPIView):
 
   def list(self, request):
-    teamGeneral = TeamGeneral();
-    teamClutch = TeamClutch();
-    teamPlaytype = TeamPlaytype();
-    teamTracking = TeamTracking();
-    teamDefenseDashboard = TeamDefenseDashboard();
-    teamShotDashboard = TeamShotDashboard();
-    boxScores = BoxScores();
-    teamAdvancedBoxScores = TeamAdvancedBoxScores();
+    teamGeneral = TeamGeneral()
+    teamClutch = TeamClutch()
+    teamPlaytype = TeamPlaytype()
+    teamTracking = TeamTracking()
+    teamDefenseDashboard = TeamDefenseDashboard()
+    teamShotDashboard = TeamShotDashboard()
+    boxScores = BoxScores()
+    teamAdvancedBoxScores = TeamAdvancedBoxScores()
+    teamShooting = TeamShooting()
+    teamOpponentShooting = TeamOpponentShooting()
 
-    # teamGeneral.create_files();
-    # teamClutch.create_files();
-    # teamPlaytype.create_files();
-    # teamTracking.create_files();
-    # teamDefenseDashboard.create_files();
-    # teamShotDashboard.create_files();
-    # boxScores.create_files();
-    teamAdvancedBoxScores.create_files();
+    # teamGeneral.create_files()
+    # teamClutch.create_files()
+    # teamPlaytype.create_files()
+    # teamTracking.create_files()
+    # teamDefenseDashboard.create_files()
+    # teamShotDashboard.create_files()
+    # boxScores.create_files()
+    # teamAdvancedBoxScores.create_files()
+    teamShooting.create_files()
+    teamOpponentShooting.create_files()
 
     return Response("OK", 200)
 
@@ -267,3 +271,69 @@ class TeamAdvancedBoxScores():
     for category in categories:
       for last_game in last_games:
         self.create_file(category, last_game)
+
+class TeamShooting():
+  
+  def create_files(self):
+    now = datetime.now()
+    date = now.strftime("%m-%d-%Y")
+    time = now.strftime("%m-%d-%Y-%H-%M-%S")
+    
+    file_name = 'team_shooting'
+    path_latest = OUT_DIR + '/stats/nba/' + date + '/latest/'
+    path_archived = OUT_DIR + '/stats/nba/' + date + '/archived/' + time + '/'
+
+    helpers.create_folder(path_latest)
+    helpers.create_folder(path_archived)
+
+    stats = league.TeamShooting()
+    
+    df = stats.overall()
+    df.to_csv(path_latest + file_name + '.csv', encoding='utf-8')
+    df.to_json(path_latest + file_name + '.json', orient='records')
+    df.to_csv(path_archived + file_name + '.csv', encoding='utf-8')
+    df.to_json(path_archived + file_name + '.json', orient='records')
+
+class TeamOpponentShooting():
+  
+  def create_file(self, category):
+    now = datetime.now()
+    date = now.strftime("%m-%d-%Y")
+    time = now.strftime("%m-%d-%Y-%H-%M-%S")
+    
+    file_name = 'team_opponentshooting_' + category['key']
+    path_latest = OUT_DIR + '/stats/nba/' + date + '/latest/'
+    path_archived = OUT_DIR + '/stats/nba/' + date + '/archived/' + time + '/'
+
+    helpers.create_folder(path_latest)
+    helpers.create_folder(path_archived)
+
+    stats = None
+
+    if(category['key'] == 'opponent'):
+      stats = league.TeamShooting(measure_type=category['name'])
+    elif(category['key'] == 'general'):
+      stats = league.TeamOpponentShooting(general_range=category['name'])
+    elif(category['key'] == 'shotclock'):
+      stats = league.TeamOpponentShooting(shotclock_range=category['name'])
+    elif(category['key'] == 'dribbles'):
+      stats = league.TeamOpponentShooting(dribbles_range=category['name'])
+    elif(category['key'] == 'touchtime'):
+      stats = league.TeamOpponentShooting(touchtime_range=category['name'])
+    elif(category['key'] == 'closestdefender'):
+      stats = league.TeamOpponentShooting(closedefdist_range=category['name'])
+    elif(category['key'] == 'closestdefender10p'):
+      stats = league.TeamOpponentShooting(closedefdist_range=category['name'], shotdist_range='>=10.0')
+    
+    if(stats != None):
+      df = stats.overall()
+      df.to_csv(path_latest + file_name + '.csv', encoding='utf-8')
+      df.to_json(path_latest + file_name + '.json', orient='records')
+      df.to_csv(path_archived + file_name + '.csv', encoding='utf-8')
+      df.to_json(path_archived + file_name + '.json', orient='records')
+
+  def create_files(self):
+    categories = helpers.get_categories('Team', 'OpponentShooting')
+
+    for category in categories:
+      self.create_file(category)

@@ -800,3 +800,9 @@ class PlaytypeLimit:
 class PlaytypeSeasonType:
     Reg = 'Reg'
     Default = Reg
+
+class DistanceRange:
+    Range5ft = '5ft Range'
+    Range8ft = '8ft Range'
+    ByZone = 'By Zone'
+    Default = Range5ft
