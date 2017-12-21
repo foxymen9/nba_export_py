@@ -119,7 +119,7 @@ class TeamPlaytype():
     categories = helpers.get_categories('team', 'Playtype')
 
     for category in categories:
-      self.create_file(measure_type)
+      self.create_file(category)
 
 class TeamTracking():
   
