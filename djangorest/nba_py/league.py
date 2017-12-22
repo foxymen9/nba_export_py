@@ -116,7 +116,7 @@ class GameLog:
                  season_type=constants.SeasonType.Default,
                  player_or_team=constants.Player_or_Team.Default,
                  counter=constants.Counter.Default,
-                 sorter=constants.Sorter.Default,
+                 sorter=constants.Sorter.DATE,
                  direction=constants.Direction.Default,
                  ):
 
@@ -128,6 +128,59 @@ class GameLog:
                                       'Counter': counter,
                                       'Sorter': sorter,
                                       'Direction': direction
+                                      })
+
+    def overall(self):
+        return _api_scrape(self.json, 0)
+
+
+class GameLogs:
+    def __init__(self,
+                 endpoint=constants._DefaultBlank.Default,
+                 date_from=constants.DateFrom.Default,
+                 date_to=constants.DateTo.Default,
+                 game_segment=constants.GameSegment.Default,
+                 last_n_games=constants.LastNGames.Default,
+                 league_id=constants.League.Default,
+                 location=constants.Location.Default,
+                 measure_type=constants.MeasureType.Default,
+                 month=constants.Month.Default,
+                 opponent_team_id=constants.OpponentTeamID.Default,
+                 outcome=constants.Outcome.Default,
+                 playoff_round=constants.PlayoffRound.Default,
+                 per_mode=constants.PerMode.Totals,
+                 period=constants.Period.Default,
+                 player_id=constants.TeamID.Default,
+                 season_segment=constants.SeasonSegment.Default,
+                 season_type=constants.SeasonType.Default,
+                 season=constants.CURRENT_SEASON,
+                 shot_clock_range=constants.ShotClockRange.Default,
+                 team_id=constants.TeamID.Default,
+                 vs_conference=constants.VsConference.Default,
+                 vs_division=constants.VsDivision.Default
+                 ):
+        self.json = _get_json(endpoint=endpoint,
+                              params={'LeagueID': league_id,
+                                      'SeasonType': season_type,
+                                      'MeasureType': measure_type,
+                                      'PerMode': per_mode,
+                                      'Season': season,
+                                      'PORound': playoff_round,
+                                      'Outcome': outcome,
+                                      'Location': location,
+                                      'Month': month,
+                                      'SeasonSegment': season_segment,
+                                      'DateFrom': date_from,
+                                      'DateTo': date_to,
+                                      'OpponentTeamID': opponent_team_id,
+                                      'VsConference': vs_conference,
+                                      'VsDivision': vs_division,
+                                      'TeamID': team_id,
+                                      'PlayerID': player_id,
+                                      'GameSegment': game_segment,
+                                      'Period': period,
+                                      'ShotClockRange': shot_clock_range,
+                                      'LastNGames': last_n_games
                                       })
 
     def overall(self):
@@ -531,7 +584,97 @@ class TeamClutch:
         return _api_scrape(self.json, 0)
 
 
+class PlayerClutch:
+    _endpoint = 'leaguedashplayerclutch'
+
+    def __init__(self,
+                 league_id=constants.League.Default,
+                 season_type=constants.SeasonType.Default,
+                 measure_type=constants.MeasureType.Default,
+                 per_mode=constants.PerMode.Default,
+                 plus_minus=constants.PlusMinus.Default,
+                 pace_adjust=constants.PaceAdjust.Default,
+                 rank=constants.Rank.Default,
+                 season=constants.CURRENT_SEASON,
+                 playoff_round=constants.PlayoffRound.Default,
+                 outcome=constants.Outcome.Default,
+                 location=constants.Location.Default,
+                 month=constants.Month.Default,
+                 season_segment=constants.SeasonSegment.Default,
+                 date_from=constants.DateFrom.Default,
+                 date_to=constants.DateTo.Default,
+                 opponent_team_id=constants.OpponentTeamID.Default,
+                 vs_conference=constants.VsConference.Default,
+                 vs_division=constants.VsDivision.Default,
+                 team_id=constants.TeamID.Default,
+                 conference=constants.Conference.Default,
+                 division=constants.Division.Default,
+                 game_segment=constants.GameSegment.Default,
+                 period=constants.Period.Default,
+                 shot_clock_range=constants.ShotClockRange.Default,
+                 last_n_games=constants.LastNGames.Default,
+                 game_scope=constants.Game_Scope.Default,
+                 player_experience=constants.PlayerExperience.Default,
+                 player_position=constants.PlayerPosition.Default,
+                 starter_bench=constants.StarterBench.Default,
+                 ahead_behind=constants.AheadBehind.Default,
+                 clutch_time=constants.ClutchTime.Default,
+                 point_diff=constants.PointDiff.Default,
+                 draft_year=constants.DraftYear.Default,
+                 draft_pick=constants.DraftPick.Default,
+                 college=constants.College.Default,
+                 country=constants.Country.Default,
+                 height=constants.Height.Default,
+                 weight=constants.Weight.Default
+                 ):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'LeagueID': league_id,
+                                      'SeasonType': season_type,
+                                      'MeasureType': measure_type,
+                                      'PerMode': per_mode,
+                                      'PlusMinus': plus_minus,
+                                      'PaceAdjust': pace_adjust,
+                                      'Rank': rank,
+                                      'Season': season,
+                                      'PORound': playoff_round,
+                                      'Outcome': outcome,
+                                      'Location': location,
+                                      'Month': month,
+                                      'SeasonSegment': season_segment,
+                                      'DateFrom': date_from,
+                                      'DateTo': date_to,
+                                      'OpponentTeamID': opponent_team_id,
+                                      'VsConference': vs_conference,
+                                      'VsDivision': vs_division,
+                                      'TeamID': team_id,
+                                      'Conference': conference,
+                                      'Division': division,
+                                      'GameSegment': game_segment,
+                                      'Period': period,
+                                      'ShotClockRange': shot_clock_range,
+                                      'LastNGames': last_n_games,
+                                      'GameScope': game_scope,
+                                      'PlayerExperience': player_experience,
+                                      'PlayerPosition': player_position,
+                                      'StarterBench': starter_bench,
+                                      'AheadBehind': ahead_behind,
+                                      'ClutchTime': clutch_time,
+                                      'PointDiff': point_diff,
+                                      'DraftYear': draft_year,
+                                      'DraftPick': draft_pick,
+                                      'College': college,
+                                      'Country': country,
+                                      'Height': height,
+                                      'Weight': weight
+                                      })
+
+    def overall(self):
+        return _api_scrape(self.json, 0)
+
+
 class TeamPlaytype:
+    _endpoint = 'team'
+
     def __init__(self,
                  category=constants._DefaultBlank.Default,
                  season=constants.CURRENT_SEASON,
@@ -540,7 +683,32 @@ class TeamPlaytype:
                  names=constants.PlaytypeNames.Default,
                  limit=constants.PlaytypeLimit.All,
                  ):
-        self.json = _get_json_playtype(params={'category': category,
+        self.json = _get_json_playtype(endpoint=self._endpoint,
+                                       params={'category': category,
+                                               'season': season,
+                                               'seasonType': season_type,
+                                               'names': names,
+                                               'q': time,
+                                               'limit': limit
+                                               })
+
+    def overall(self):
+        return _api_scrape_playtype(self.json)
+
+
+class PlayerPlaytype:
+    _endpoint = 'player'
+
+    def __init__(self,
+                 category=constants._DefaultBlank.Default,
+                 season=constants.CURRENT_SEASON,
+                 season_type=constants.PlaytypeSeasonType.Default,
+                 time=constants.CURRENT_TIME,
+                 names=constants.PlaytypeNames.Default,
+                 limit=constants.PlaytypeLimit.All,
+                 ):
+        self.json = _get_json_playtype(endpoint=self._endpoint,
+                                       params={'category': category,
                                                'season': season,
                                                'seasonType': season_type,
                                                'names': names,
@@ -606,6 +774,80 @@ class TeamDefenseDashboard:
         return _api_scrape(self.json, 0)
 
 
+class PlayerDefenseDashboard:
+    _endpoint = 'leaguedashptdefend'
+
+    def __init__(self,
+                 league_id=constants.League.Default,
+                 season_type=constants.SeasonType.Default,
+                 defense_category=constants._DefaultBlank.Default,
+                 per_mode=constants.PerMode.Default,
+                 season=constants.CURRENT_SEASON,
+                 playoff_round=constants.PlayoffRound.Default,
+                 outcome=constants.Outcome.Default,
+                 location=constants.Location.Default,
+                 month=constants.Month.Default,
+                 season_segment=constants.SeasonSegment.Default,
+                 date_from=constants.DateFrom.Default,
+                 date_to=constants.DateTo.Default,
+                 opponent_team_id=constants.OpponentTeamID.Default,
+                 vs_conference=constants.VsConference.Default,
+                 vs_division=constants.VsDivision.Default,
+                 team_id=constants.TeamID.Default,
+                 player_id=constants.TeamID.Default,
+                 conference=constants.Conference.Default,
+                 division=constants.Division.Default,
+                 game_segment=constants.GameSegment.Default,
+                 period=constants.Period.Default,
+                 last_n_games=constants.LastNGames.Default,
+                 player_experience=constants.PlayerExperience.Default,
+                 player_position=constants.PlayerPosition.Default,
+                 starter_bench=constants.StarterBench.Default,
+                 draft_year=constants.DraftYear.Default,
+                 draft_pick=constants.DraftPick.Default,
+                 college=constants.College.Default,
+                 country=constants.Country.Default,
+                 height=constants.Height.Default,
+                 weight=constants.Weight.Default
+                 ):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'LeagueID': league_id,
+                                      'SeasonType': season_type,
+                                      'DefenseCategory': defense_category,
+                                      'PerMode': per_mode,
+                                      'Season': season,
+                                      'PORound': playoff_round,
+                                      'Outcome': outcome,
+                                      'Location': location,
+                                      'Month': month,
+                                      'SeasonSegment': season_segment,
+                                      'DateFrom': date_from,
+                                      'DateTo': date_to,
+                                      'OpponentTeamID': opponent_team_id,
+                                      'VsConference': vs_conference,
+                                      'VsDivision': vs_division,
+                                      'TeamID': team_id,
+                                      'PlayerID': player_id,
+                                      'Conference': conference,
+                                      'Division': division,
+                                      'GameSegment': game_segment,
+                                      'Period': period,
+                                      'LastNGames': last_n_games,
+                                      'PlayerExperience': player_experience,
+                                      'PlayerPosition': player_position,
+                                      'StarterBench': starter_bench,
+                                      'DraftYear': draft_year,
+                                      'DraftPick': draft_pick,
+                                      'College': college,
+                                      'Country': country,
+                                      'Height': height,
+                                      'Weight': weight
+                                      })
+
+    def overall(self):
+        return _api_scrape(self.json, 0)
+
+
 class TeamShotDashboard:
     _endpoint = 'leaguedashteamptshot'
 
@@ -664,6 +906,88 @@ class TeamShotDashboard:
                                       'TouchTimeRange': touchtime_range,
                                       'CloseDefDistRange': closedefdist_range,
                                       'ShotDistRange': shotdist_range,
+                                      })
+
+    def overall(self):
+        return _api_scrape(self.json, 0)
+
+
+class PlayerShotDashboard:
+    _endpoint = 'leaguedashplayerptshot'
+
+    def __init__(self,
+                 league_id=constants.League.Default,
+                 season_type=constants.SeasonType.Default,
+                 per_mode=constants.PerMode.Default,
+                 season=constants.CURRENT_SEASON,
+                 playoff_round=constants.PlayoffRound.Default,
+                 outcome=constants.Outcome.Default,
+                 location=constants.Location.Default,
+                 month=constants.Month.Default,
+                 season_segment=constants.SeasonSegment.Default,
+                 date_from=constants.DateFrom.Default,
+                 date_to=constants.DateTo.Default,
+                 opponent_team_id=constants.OpponentTeamID.Default,
+                 vs_conference=constants.VsConference.Default,
+                 vs_division=constants.VsDivision.Default,
+                 team_id=constants.TeamID.Default,
+                 conference=constants.Conference.Default,
+                 division=constants.Division.Default,
+                 game_segment=constants.GameSegment.Default,
+                 period=constants.Period.Default,
+                 last_n_games=constants.LastNGames.Default,
+                 general_range=constants._DefaultBlank.Default,
+                 shotclock_range=constants._DefaultBlank.Default,
+                 dribbles_range=constants._DefaultBlank.Default,
+                 touchtime_range=constants._DefaultBlank.Default,
+                 closedefdist_range=constants._DefaultBlank.Default,
+                 shotdist_range=constants._DefaultBlank.Default,
+                 player_experience=constants.PlayerExperience.Default,
+                 player_position=constants.PlayerPosition.Default,
+                 starter_bench=constants.StarterBench.Default,
+                 draft_year=constants.DraftYear.Default,
+                 draft_pick=constants.DraftPick.Default,
+                 college=constants.College.Default,
+                 country=constants.Country.Default,
+                 height=constants.Height.Default,
+                 weight=constants.Weight.Default
+                 ):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'LeagueID': league_id,
+                                      'SeasonType': season_type,
+                                      'PerMode': per_mode,
+                                      'Season': season,
+                                      'PORound': playoff_round,
+                                      'Outcome': outcome,
+                                      'Location': location,
+                                      'Month': month,
+                                      'SeasonSegment': season_segment,
+                                      'DateFrom': date_from,
+                                      'DateTo': date_to,
+                                      'OpponentTeamID': opponent_team_id,
+                                      'VsConference': vs_conference,
+                                      'VsDivision': vs_division,
+                                      'TeamID': team_id,
+                                      'Conference': conference,
+                                      'Division': division,
+                                      'GameSegment': game_segment,
+                                      'Period': period,
+                                      'LastNGames': last_n_games,
+                                      'GeneralRange': general_range,
+                                      'ShotClockRange': shotclock_range,
+                                      'DribbleRange': dribbles_range,
+                                      'TouchTimeRange': touchtime_range,
+                                      'CloseDefDistRange': closedefdist_range,
+                                      'ShotDistRange': shotdist_range,
+                                      'PlayerExperience': player_experience,
+                                      'PlayerPosition': player_position,
+                                      'StarterBench': starter_bench,
+                                      'DraftYear': draft_year,
+                                      'DraftPick': draft_pick,
+                                      'College': college,
+                                      'Country': country,
+                                      'Height': height,
+                                      'Weight': weight
                                       })
 
     def overall(self):
@@ -742,6 +1066,90 @@ class TeamShooting:
         return _api_scrape_with_headers(self.json)
 
 
+class PlayerShooting:
+    _endpoint = 'leaguedashplayershotlocations'
+
+    def __init__(self,
+                 conference=constants.Conference.Default,
+                 date_from=constants.DateFrom.Default,
+                 date_to=constants.DateTo.Default,
+                 distance_range=constants.DistanceRange.Default,
+                 division=constants.Division.Default,
+                 game_scope=constants.Game_Scope.Default,
+                 game_segment=constants.GameSegment.Default,
+                 last_n_games=constants.LastNGames.Default,
+                 league_id=constants.League.Default,
+                 location=constants.Location.Default,
+                 measure_type=constants.MeasureType.Default,
+                 month=constants.Month.Default,
+                 opponent_team_id=constants.OpponentTeamID.Default,
+                 outcome=constants.Outcome.Default,
+                 playoff_round=constants.PlayoffRound.Default,
+                 pace_adjust=constants.PaceAdjust.Default,
+                 per_mode=constants.PerMode.Default,
+                 period=constants.Period.Default,
+                 player_experience=constants.PlayerExperience.Default,
+                 player_position=constants.PlayerPosition.Default,
+                 plus_minus=constants.PlusMinus.Default,
+                 rank=constants.Rank.Default,
+                 season=constants.CURRENT_SEASON,
+                 season_segment=constants.SeasonSegment.Default,
+                 season_type=constants.SeasonType.Default,
+                 shot_clock_range=constants.ShotClockRange.Default,
+                 starter_bench=constants.StarterBench.Default,
+                 team_id=constants.TeamID.Default,
+                 vs_conference=constants.VsConference.Default,
+                 vs_division=constants.VsDivision.Default,
+                 draft_year=constants.DraftYear.Default,
+                 draft_pick=constants.DraftPick.Default,
+                 college=constants.College.Default,
+                 country=constants.Country.Default,
+                 height=constants.Height.Default,
+                 weight=constants.Weight.Default
+                 ):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'LeagueID': league_id,
+                                      'SeasonType': season_type,
+                                      'MeasureType': measure_type,
+                                      'PerMode': per_mode,
+                                      'PlusMinus': plus_minus,
+                                      'PaceAdjust': pace_adjust,
+                                      'Rank': rank,
+                                      'Season': season,
+                                      'PORound': playoff_round,
+                                      'Outcome': outcome,
+                                      'Location': location,
+                                      'Month': month,
+                                      'SeasonSegment': season_segment,
+                                      'DateFrom': date_from,
+                                      'DateTo': date_to,
+                                      'OpponentTeamID': opponent_team_id,
+                                      'VsConference': vs_conference,
+                                      'VsDivision': vs_division,
+                                      'TeamID': team_id,
+                                      'Conference': conference,
+                                      'Division': division,
+                                      'GameSegment': game_segment,
+                                      'Period': period,
+                                      'ShotClockRange': shot_clock_range,
+                                      'LastNGames': last_n_games,
+                                      'GameScope': game_scope,
+                                      'PlayerExperience': player_experience,
+                                      'PlayerPosition': player_position,
+                                      'StarterBench': starter_bench,
+                                      'DistanceRange': distance_range,
+                                      'DraftYear': draft_year,
+                                      'DraftPick': draft_pick,
+                                      'College': college,
+                                      'Country': country,
+                                      'Height': height,
+                                      'Weight': weight
+                                      })
+
+    def overall(self):
+        return _api_scrape_with_headers(self.json)
+
+
 class TeamOpponentShooting:
     _endpoint = 'leaguedashoppptshot'
 
@@ -808,6 +1216,70 @@ class TeamOpponentShooting:
 
 class TeamHustle:
     _endpoint = 'leaguehustlestatsteam'
+
+    def __init__(self,
+                 league_id=constants.League.Default,
+                 season_type=constants.SeasonType.Default,
+                 per_mode=constants.PerMode.Default,
+                 season=constants.CURRENT_SEASON,
+                 playoff_round=constants.PlayoffRound.Default,
+                 outcome=constants.Outcome.Default,
+                 location=constants.Location.Default,
+                 month=constants.Month.Default,
+                 season_segment=constants.SeasonSegment.Default,
+                 date_from=constants.DateFrom.Default,
+                 date_to=constants.DateTo.Default,
+                 opponent_team_id=constants.OpponentTeamID.Default,
+                 vs_conference=constants.VsConference.Default,
+                 vs_division=constants.VsDivision.Default,
+                 team_id=constants.TeamID.Default,
+                 conference=constants.Conference.Default,
+                 division=constants.Division.Default,
+                 last_n_games=constants.LastNGames.Default,
+                 player_experience=constants.PlayerExperience.Default,
+                 player_position=constants.PlayerPosition.Default,
+                 draft_year=constants.DraftYear.Default,
+                 draft_pick=constants.DraftPick.Default,
+                 college=constants.College.Default,
+                 country=constants.Country.Default,
+                 height=constants.Height.Default,
+                 weight=constants.Weight.Default
+                 ):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'LeagueID': league_id,
+                                      'SeasonType': season_type,
+                                      'PerMode': per_mode,
+                                      'Season': season,
+                                      'PORound': playoff_round,
+                                      'Outcome': outcome,
+                                      'Location': location,
+                                      'Month': month,
+                                      'SeasonSegment': season_segment,
+                                      'DateFrom': date_from,
+                                      'DateTo': date_to,
+                                      'OpponentTeamID': opponent_team_id,
+                                      'VsConference': vs_conference,
+                                      'VsDivision': vs_division,
+                                      'TeamID': team_id,
+                                      'Conference': conference,
+                                      'Division': division,
+                                      'LastNGames': last_n_games,
+                                      'PlayerExperience': player_experience,
+                                      'PlayerPosition': player_position,
+                                      'DraftYear': draft_year,
+                                      'DraftPick': draft_pick,
+                                      'College': college,
+                                      'Country': country,
+                                      'Height': height,
+                                      'Weight': weight
+                                      })
+
+    def overall(self):
+        return _api_scrape(self.json, 0)
+
+
+class PlayerHustle:
+    _endpoint = 'leaguehustlestatsplayer'
 
     def __init__(self,
                  league_id=constants.League.Default,

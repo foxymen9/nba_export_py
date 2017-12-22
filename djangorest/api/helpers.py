@@ -66,14 +66,23 @@ def get_categories(type, section):
         { 'key': 'defense', 'name': 'Defense' }
       ]
   elif(section == 'Clutch'):
-    return [
-      { 'key': 'traditional', 'name': 'Base' },
-      { 'key': 'advanced', 'name': 'Advanced' },
-      { 'key': 'fourfactors', 'name': 'Four Factors' },
-      { 'key': 'misc', 'name': 'Misc' },
-      { 'key': 'scoring', 'name': 'Scoring' },
-      { 'key': 'opponent', 'name': 'Opponent' }
-    ]
+    if(type == 'team'):
+      return [
+        { 'key': 'traditional', 'name': 'Base' },
+        { 'key': 'advanced', 'name': 'Advanced' },
+        { 'key': 'fourfactors', 'name': 'Four Factors' },
+        { 'key': 'misc', 'name': 'Misc' },
+        { 'key': 'scoring', 'name': 'Scoring' },
+        { 'key': 'opponent', 'name': 'Opponent' }
+      ]
+    else:
+      return [
+        { 'key': 'traditional', 'name': 'Base' },
+        { 'key': 'advanced', 'name': 'Advanced' },
+        { 'key': 'misc', 'name': 'Misc' },
+        { 'key': 'scoring', 'name': 'Scoring' },
+        { 'key': 'usage', 'name': 'Usage' }
+      ]
   elif(section == 'Playtype'):
     return [
       { 'key': 'transition', 'name': 'Transition' },
@@ -94,7 +103,7 @@ def get_categories(type, section):
       { 'key': 'defense', 'name': 'Defense' },
       { 'key': 'catchshoot', 'name': 'CatchShoot' },
       { 'key': 'passing', 'name': 'Passing' },
-      { 'key': 'possessions', 'name': 'Possessions' },
+      { 'key': 'touches', 'name': 'Possessions' },
       { 'key': 'rebounding', 'name': 'Rebounding' },
       { 'key': 'efficiency', 'name': 'Efficiency' },
       { 'key': 'speeddistance', 'name': 'SpeedDistance' },
@@ -122,13 +131,22 @@ def get_categories(type, section):
       { 'key': 'closestdefender10p', 'name': '0-2 Feet - Very Tight' }
     ]
   elif(section == 'AdvancedBoxScores'):
-    return [
-      { 'key': 'traditional', 'name': 'Base' },
-      { 'key': 'advanced', 'name': 'Advanced' },
-      { 'key': 'fourfactors', 'name': 'Four Factors' },
-      { 'key': 'misc', 'name': 'Misc' },
-      { 'key': 'scoring', 'name': 'Scoring' }
-    ]
+    if(type == 'team'):
+      return [
+        { 'key': 'traditional', 'name': 'Base' },
+        { 'key': 'advanced', 'name': 'Advanced' },
+        { 'key': 'fourfactors', 'name': 'Four Factors' },
+        { 'key': 'misc', 'name': 'Misc' },
+        { 'key': 'scoring', 'name': 'Scoring' }
+      ]
+    else:
+      return [
+        { 'key': 'traditional', 'name': 'Base' },
+        { 'key': 'advanced', 'name': 'Advanced' },
+        { 'key': 'misc', 'name': 'Misc' },
+        { 'key': 'scoring', 'name': 'Scoring' },
+        { 'key': 'usage', 'name': 'Usage' }
+      ]
   elif(section == 'OpponentShooting'):
     return [
       { 'key': 'opponent', 'name': 'Opponent' },

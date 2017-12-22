@@ -400,7 +400,7 @@ class TeamPlayerOnOffSummary(_TeamDashboard):
         return _api_scrape(self.json, 2)
 
 
-class TeamGameLog:
+class TeamGameLogs:
     _endpoint = 'teamgamelog'
 
     def __init__(self,
@@ -413,60 +413,6 @@ class TeamGameLog:
                                       'SeasonType': season_type})
 
     def info(self):
-        return _api_scrape(self.json, 0)
-
-
-class TeamGameLogs:
-    _endpoint = 'teamgamelogs'
-
-    def __init__(self,
-                 date_from=constants.DateFrom.Default,
-                 date_to=constants.DateTo.Default,
-                 game_segment=constants.GameSegment.Default,
-                 last_n_games=constants.LastNGames.Default,
-                 league_id=constants.League.Default,
-                 location=constants.Location.Default,
-                 measure_type=constants.MeasureType.Default,
-                 month=constants.Month.Default,
-                 opponent_team_id=constants.OpponentTeamID.Default,
-                 outcome=constants.Outcome.Default,
-                 playoff_round=constants.PlayoffRound.Default,
-                 per_mode=constants.PerMode.Totals,
-                 period=constants.Period.Default,
-                 player_id=constants.TeamID.Default,
-                 season_segment=constants.SeasonSegment.Default,
-                 season_type=constants.SeasonType.Default,
-                 season=constants.CURRENT_SEASON,
-                 shot_clock_range=constants.ShotClockRange.Default,
-                 team_id=constants.TeamID.Default,
-                 vs_conference=constants.VsConference.Default,
-                 vs_division=constants.VsDivision.Default
-                 ):
-        self.json = _get_json(endpoint=self._endpoint,
-                              params={'LeagueID': league_id,
-                                      'SeasonType': season_type,
-                                      'MeasureType': measure_type,
-                                      'PerMode': per_mode,
-                                      'Season': season,
-                                      'PORound': playoff_round,
-                                      'Outcome': outcome,
-                                      'Location': location,
-                                      'Month': month,
-                                      'SeasonSegment': season_segment,
-                                      'DateFrom': date_from,
-                                      'DateTo': date_to,
-                                      'OpponentTeamID': opponent_team_id,
-                                      'VsConference': vs_conference,
-                                      'VsDivision': vs_division,
-                                      'TeamID': team_id,
-                                      'PlayerID': player_id,
-                                      'GameSegment': game_segment,
-                                      'Period': period,
-                                      'ShotClockRange': shot_clock_range,
-                                      'LastNGames': last_n_games
-                                      })
-
-    def overall(self):
         return _api_scrape(self.json, 0)
 
 

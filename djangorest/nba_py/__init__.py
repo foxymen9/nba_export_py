@@ -29,7 +29,7 @@ HEADERS = {
     'Accept-Language': ('en'),
     'origin': ('http://stats.nba.com')
     }
-BASE_URL_PLAYTYPE = 'https://stats-prod.nba.com/wp-json/statscms/v1/synergy/team/'
+BASE_URL_PLAYTYPE = 'https://stats-prod.nba.com/wp-json/statscms/v1/synergy/{endpoint}/'
 
 
 def _api_scrape(json_inp, ndx):
@@ -76,8 +76,8 @@ def _api_scrape_with_headers(json_inp):
     
     i = 0
     for header1 in headers[1]['columnNames']:
-        j = (i - 2) // 3
-        if i > 1:
+        if i >= headers[0]['columnsToSkip']:
+            j = (i - headers[0]['columnsToSkip']) // 3
             newHeaders.append(headers[0]['columnNames'][j] + ' ' + header1)
         else:
             newHeaders.append(header1)
@@ -121,10 +121,10 @@ def _api_scrape_playtype(json_inp):
         return [dict(zip(value)) for value in values]
 
 
-def _get_json_playtype(params):
+def _get_json_playtype(endpoint, params):
     h = dict(HEADERS)
-    h['referer'] = 'http://stats.nba.com/teams/{ref}/'.format(ref=params['category'])
-    _get = get(BASE_URL_PLAYTYPE, params=params, headers=h)
+    h['referer'] = 'http://stats.nba.com/{endpoint}/{ref}/'.format(endpoint=endpoint, ref=params['category'])
+    _get = get(BASE_URL_PLAYTYPE.format(endpoint=endpoint), params=params, headers=h)
     _get.raise_for_status()
     return _get.json()
 

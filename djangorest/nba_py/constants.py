@@ -774,6 +774,7 @@ class Sorter:
     BLK = 'BLK'
     TOV = 'TOV'
     REB = 'REB'
+    DATE = 'DATE'
     Default = PTS
 
 
