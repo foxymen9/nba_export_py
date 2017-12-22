@@ -284,6 +284,60 @@ class PlayerStats:
         return _api_scrape(self.json, 0)
 
 
+class PlayerDetails:
+    _endpoint = 'leagueplayerondetails'
+
+    def __init__(self,
+                 league_id=constants.League.Default,
+                 season_type=constants.SeasonType.Default,
+                 measure_type=constants.MeasureType.Default,
+                 per_mode=constants.PerMode.Default,
+                 plus_minus=constants.PlusMinus.Default,
+                 pace_adjust=constants.PaceAdjust.Default,
+                 rank=constants.Rank.Default,
+                 season=constants.CURRENT_SEASON,
+                 outcome=constants.Outcome.Default,
+                 location=constants.Location.Default,
+                 month=constants.Month.Default,
+                 season_segment=constants.SeasonSegment.Default,
+                 date_from=constants.DateFrom.Default,
+                 date_to=constants.DateTo.Default,
+                 opponent_team_id=constants.OpponentTeamID.Default,
+                 vs_conference=constants.VsConference.Default,
+                 vs_division=constants.VsDivision.Default,
+                 team_id=constants.TeamID.Default,
+                 game_segment=constants.GameSegment.Default,
+                 period=constants.Period.Default,
+                 last_n_games=constants.LastNGames.Default,
+                 ):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'LeagueID': league_id,
+                                      'SeasonType': season_type,
+                                      'MeasureType': measure_type,
+                                      'PerMode': per_mode,
+                                      'PlusMinus': plus_minus,
+                                      'PaceAdjust': pace_adjust,
+                                      'Rank': rank,
+                                      'Season': season,
+                                      'Outcome': outcome,
+                                      'Location': location,
+                                      'Month': month,
+                                      'SeasonSegment': season_segment,
+                                      'DateFrom': date_from,
+                                      'DateTo': date_to,
+                                      'OpponentTeamID': opponent_team_id,
+                                      'VsConference': vs_conference,
+                                      'VsDivision': vs_division,
+                                      'TeamID': team_id,
+                                      'GameSegment': game_segment,
+                                      'Period': period,
+                                      'LastNGames': last_n_games,
+                                      })
+
+    def overall(self):
+        return _api_scrape(self.json, 0)
+
+
 class _PlayerTrackingStats:
     """
     Args:

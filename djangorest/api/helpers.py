@@ -45,15 +45,26 @@ def get_last_games():
 
 def get_categories(type, section):
   if(section == 'General'):
-    return [
-      { 'key': 'traditional', 'name': 'Base' },
-      { 'key': 'advanced', 'name': 'Advanced' },
-      { 'key': 'fourfactors', 'name': 'Four Factors' },
-      { 'key': 'misc', 'name': 'Misc' },
-      { 'key': 'scoring', 'name': 'Scoring' },
-      { 'key': 'opponent', 'name': 'Opponent' },
-      { 'key': 'defense', 'name': 'Defense' }
-    ]
+    if(type == 'team'):
+      return [
+        { 'key': 'traditional', 'name': 'Base' },
+        { 'key': 'advanced', 'name': 'Advanced' },
+        { 'key': 'fourfactors', 'name': 'Four Factors' },
+        { 'key': 'misc', 'name': 'Misc' },
+        { 'key': 'scoring', 'name': 'Scoring' },
+        { 'key': 'opponent', 'name': 'Opponent' },
+        { 'key': 'defense', 'name': 'Defense' }
+      ]
+    else:
+      return [
+        { 'key': 'traditional', 'name': 'Base' },
+        { 'key': 'advanced', 'name': 'Advanced' },
+        { 'key': 'misc', 'name': 'Misc' },
+        { 'key': 'scoring', 'name': 'Scoring' },
+        { 'key': 'usage', 'name': 'Usage' },
+        { 'key': 'opponent', 'name': 'Opponent' },
+        { 'key': 'defense', 'name': 'Defense' }
+      ]
   elif(section == 'Clutch'):
     return [
       { 'key': 'traditional', 'name': 'Base' },
