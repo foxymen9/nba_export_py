@@ -1,9 +1,14 @@
 
 import os, errno
 from datetime import datetime
-from django.conf import settings
+from nba_py import constants
 
-OUT_DIR = settings.BASE_DIR + '/../files'
+OUT_DIR = constants.BASE_DIR + '/data_files'
+
+def totimestamp(dt, epoch=datetime(1970,1,1)):
+  td = dt - epoch
+  
+  return (td.microseconds + (td.seconds + td.days * 86400) * 10**6) / 10**6 
 
 
 def create_folder(path):

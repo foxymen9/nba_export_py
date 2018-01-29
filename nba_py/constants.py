@@ -1,12 +1,15 @@
 from datetime import datetime
+import os
+
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 _curr_year = datetime.now().year
 if datetime.now().month > 6:
     CURRENT_SEASON = str(_curr_year) + "-" + str(_curr_year + 1)[2:]
 else:
     CURRENT_SEASON = str(_curr_year - 1) + "-" + str(_curr_year)[2:]
-
-CURRENT_TIME = datetime.now().timestamp()
 
 TEAMS = {
     'ATL': {

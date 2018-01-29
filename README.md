@@ -3,15 +3,13 @@
 ### How to run
 
 ```
-  virtualenv -p python3 env
+  virtualenv -p python env
 
   source env/bin/activate
 
-  pip3 install -r requirements.txt
+  pip install -r requirements.txt
 
-  cd djangorest
-
-  python3 manage.py runserver
+  python server.py
 ```
 
-After hosting on http://127.0.0.1:8000, you can send request from your local http://127.0.0.1:8000/nba/stats to export all NBA stats data.
+After successfully running all commands, all NBA stats data files will be exported in `data_files`.

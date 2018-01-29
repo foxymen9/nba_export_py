@@ -1,6 +1,9 @@
+from datetime import datetime
 from nba_py import _api_scrape, _get_json, _api_scrape_playtype, _get_json_playtype, _api_scrape_with_headers
 from nba_py import constants
+from . import helpers
 
+CURRENT_TIME = helpers.totimestamp(datetime.now())
 
 class Leaders:
     _endpoint = 'leagueleaders'
@@ -679,7 +682,7 @@ class TeamPlaytype:
                  category=constants._DefaultBlank.Default,
                  season=constants.CURRENT_SEASON,
                  season_type=constants.PlaytypeSeasonType.Default,
-                 time=constants.CURRENT_TIME,
+                 time=CURRENT_TIME,
                  names=constants.PlaytypeNames.Default,
                  limit=constants.PlaytypeLimit.All,
                  ):
@@ -703,7 +706,7 @@ class PlayerPlaytype:
                  category=constants._DefaultBlank.Default,
                  season=constants.CURRENT_SEASON,
                  season_type=constants.PlaytypeSeasonType.Default,
-                 time=constants.CURRENT_TIME,
+                 time=CURRENT_TIME,
                  names=constants.PlaytypeNames.Default,
                  limit=constants.PlaytypeLimit.All,
                  ):
